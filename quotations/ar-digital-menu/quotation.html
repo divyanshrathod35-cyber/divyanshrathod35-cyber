@@ -1,0 +1,290 @@
+<title>DivexMenu AR Quotation</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: single-column proposal sheet, max 980px; pricing as 3 tiers that stack on phones */
+:root{
+  --bg:#f6f7f5; --sheet:#ffffff; --ink:#18201c; --muted:#5b6660; --line:#dfe4e0;
+  --accent:#d98e04; --accent-ink:#8a5a00; --basil:#2f6b4f; --basil-soft:#e5f0ea; --soft:#f0f2ef;
+  --f-display:"Sora",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1311; --sheet:#161c19; --ink:#e8ede9; --muted:#9aa69f; --line:#2a332e;
+  --accent:#f0a91c; --accent-ink:#f5c15a; --basil:#6cc79a; --basil-soft:#1d2d25; --soft:#1c2420; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1311; --sheet:#161c19; --ink:#e8ede9; --muted:#9aa69f; --line:#2a332e;
+  --accent:#f0a91c; --accent-ink:#f5c15a; --basil:#6cc79a; --basil-soft:#1d2d25; --soft:#1c2420; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 48px}
+.sheet{max-width:980px;margin:0 auto;background:var(--sheet);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pad{padding:clamp(20px,4vw,44px)}
+h1,h2,h3{font-family:var(--f-display);line-height:1.2;text-wrap:balance;margin:0}
+h1{font-size:clamp(26px,4.2vw,38px);font-weight:700;letter-spacing:-.01em}
+h2{font-size:21px;font-weight:600;margin-bottom:14px}
+h3{font-size:17px;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent-ink);font-weight:600}
+.muted{color:var(--muted)}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+section{border-top:1px solid var(--line)}
+.stack{display:flex;flex-direction:column;gap:14px}
+
+/* header */
+.head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:18px}
+.mark{width:30px;height:30px;border-radius:8px;background:var(--ink);color:var(--sheet);display:grid;place-items:center;font-size:15px}
+.meta{display:grid;grid-template-columns:auto auto;gap:4px 16px;font-size:13px}
+.meta dt{color:var(--muted)} .meta dd{margin:0;text-align:right}
+@media (max-width:640px){.head{grid-template-columns:1fr}.meta dd{text-align:left}}
+
+/* reference read */
+.refs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.ref{background:var(--soft);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ref ul{margin:0;padding-left:18px}
+@media (max-width:700px){.refs{grid-template-columns:1fr}}
+
+/* tiers */
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+@media (max-width:860px){.tiers{grid-template-columns:1fr}}
+.tier{border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tier.rec{border:2px solid var(--basil);background:var(--basil-soft)}
+.tag{align-self:flex-start;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:var(--basil);color:var(--sheet)}
+.tag.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.price{display:flex;flex-direction:column;gap:2px}
+.price .big{font-family:var(--f-display);font-size:28px;font-weight:700}
+.price .mo{font-size:14px;color:var(--muted)}
+.tier ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px}
+.tier .when{font-size:13px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600;background:var(--soft);font-size:13px}
+tr:last-child td{border-bottom:0}
+td.r,th.r{text-align:right;white-space:nowrap}
+.yes{color:var(--basil);font-weight:600}.no{color:var(--muted)}
+
+/* timeline */
+.phases{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.phase{background:var(--soft);border-radius:10px;padding:14px;display:flex;flex-direction:column;gap:4px;min-width:0;font-size:13.5px}
+.phase b{font-family:var(--f-display);font-size:14px}
+@media (max-width:820px){.phases{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.phases{grid-template-columns:1fr}}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media (max-width:700px){.two{grid-template-columns:1fr}}
+.list{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.callout{border-left:3px solid var(--accent);background:var(--soft);padding:14px 16px;border-radius:0 10px 10px 0}
+.sign{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:end}
+.sigline{min-width:220px;border-top:1px solid var(--ink);padding-top:6px;font-size:13px}
+a{color:var(--accent-ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+
+<main class="sheet">
+  <header class="pad stack">
+    <div class="head">
+      <div class="stack" style="gap:18px">
+        <div class="brand"><span class="mark">D</span>Divex Labs</div>
+        <div class="stack" style="gap:8px">
+          <span class="eyebrow">Commercial quotation</span>
+          <h1>DivexMenu AR: a digital menu your guests can see on the table before it's served</h1>
+          <p class="muted">QR-code menu with photoreal 3D dishes that guests place on their own table through the phone camera. No app download. Works on iPhone and Android.</p>
+        </div>
+      </div>
+      <dl class="meta">
+        <dt>Quote no.</dt><dd class="num">DL-Q-2611-AR01</dd>
+        <dt>Date</dt><dd>10 Nov 2026</dd>
+        <dt>Valid until</dt><dd>25 Nov 2026</dd>
+        <dt>Prepared for</dt><dd>[Client / Restaurant name]</dd>
+        <dt>Prepared by</dt><dd>Divyansh Rathod, CEO</dd>
+      </dl>
+    </div>
+  </header>
+
+  <section class="pad stack">
+    <h2>What you showed us, and what drives the price</h2>
+    <p>We reviewed both reference videos you shared. Together they describe one product with two quality bars, and we have priced against both.</p>
+    <div class="refs">
+      <div class="ref">
+        <span class="eyebrow">Reference 1 · the product</span>
+        <ul>
+          <li>Guest scans a table QR and opens a branded web menu</li>
+          <li>Categories, search, veg / non-veg filters, translation</li>
+          <li>"View in AR" places the dish on the real table</li>
+          <li>Floating ingredient tags on the dish (e.g. Tomato · Vitamin C)</li>
+        </ul>
+      </div>
+      <div class="ref">
+        <span class="eyebrow">Reference 2 · the quality bar</span>
+        <ul>
+          <li>AR dish matches the real plate when it arrives</li>
+          <li>True-to-size portion, real textures, correct plateware</li>
+          <li>Used live in a working restaurant, on guests' own phones</li>
+          <li>This needs on-site 3D scanning of each dish, not stock models</li>
+        </ul>
+      </div>
+    </div>
+    <p class="callout"><strong>The main cost driver is the number of dishes in 3D.</strong> Each dish is photographed from 100–200 angles on-site, rebuilt as a 3D model, cleaned up, and compressed to under 4 MB so it loads fast on mobile data. The menu software itself is our reusable platform, which keeps your setup fee low.</p>
+  </section>
+
+  <section class="pad stack">
+    <h2>Packages</h2>
+    <p class="muted">All prices in Indian Rupees, exclusive of 18% GST. One-time setup covers build, 3D capture and launch. The monthly plan covers hosting, 3D delivery, updates and support.</p>
+    <div class="tiers">
+      <article class="tier">
+        <span class="tag ghost">For cafés</span>
+        <h3>Café Starter</h3>
+        <div class="price"><span class="big num">₹39,999</span><span class="mo"><span class="num">+ ₹2,999</span> / month</span></div>
+        <ul>
+          <li><strong>15 dishes in AR</strong> (3D scanned on-site)</li>
+          <li>Branded QR web menu, your colours and logo</li>
+          <li>Categories, search, veg / non-veg / egg filters</li>
+          <li>2 languages</li>
+          <li>Admin panel: prices, photos, sold-out toggle</li>
+          <li>1 outlet, unlimited tables</li>
+        </ul>
+        <p class="when">Live in about 3 weeks</p>
+      </article>
+
+      <article class="tier rec">
+        <span class="tag">Recommended · matches your references</span>
+        <h3>Restaurant Signature</h3>
+        <div class="price"><span class="big num">₹89,999</span><span class="mo"><span class="num">+ ₹5,999</span> / month</span></div>
+        <ul>
+          <li><strong>35 dishes in AR</strong> (3D scanned on-site)</li>
+          <li><strong>Ingredient &amp; nutrition tags</strong> floating on each AR dish</li>
+          <li>Allergen and spice-level labels</li>
+          <li>Up to 5 languages with auto-translate</li>
+          <li>"Call waiter" and "Ask for bill" buttons</li>
+          <li>Analytics: most-viewed dishes, AR opens, peak hours</li>
+          <li>Google review prompt after the meal</li>
+          <li><strong>1 new dish scanned every month</strong> (included)</li>
+          <li>Everything in Café Starter</li>
+        </ul>
+        <p class="when">Live in 4–5 weeks</p>
+      </article>
+
+      <article class="tier">
+        <span class="tag ghost">Fine dining &amp; chains</span>
+        <h3>Premium Dining</h3>
+        <div class="price"><span class="big num">₹1,79,999</span><span class="mo"><span class="num">+ ₹11,999</span> / month</span></div>
+        <ul>
+          <li><strong>75 dishes in AR</strong></li>
+          <li>Order from the table, sent to kitchen display</li>
+          <li>UPI / card payment at the table</li>
+          <li>POS integration (subject to your POS provider's API)</li>
+          <li>AI suggestions: pairings and add-ons per dish</li>
+          <li>Multi-outlet with central admin</li>
+          <li>WhatsApp feedback after each visit</li>
+          <li><strong>3 new dishes scanned every month</strong></li>
+          <li>Everything in Restaurant Signature</li>
+        </ul>
+        <p class="when">Live in 6–8 weeks</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="pad stack">
+    <h2>Add-ons</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Item</th><th>Detail</th><th class="r">Price (₹)</th></tr></thead>
+        <tbody>
+          <tr><td>Extra AR dish</td><td>On-site scan, 3D rebuild, iPhone + Android formats</td><td class="r num">1,999 / dish</td></tr>
+          <tr><td>Ingredient tags on extra dish</td><td>Up to 6 labelled hotspots with nutrition notes</td><td class="r num">399 / dish</td></tr>
+          <tr><td>Acrylic QR table stand</td><td>Printed with your branding and table number</td><td class="r num">349 / stand</td></tr>
+          <tr><td>AR promo reels</td><td>5 short vertical videos of your dishes in AR, ready for Instagram</td><td class="r num">7,999 / pack</td></tr>
+          <tr><td>Extra language</td><td>Beyond your package limit</td><td class="r num">2,499 / language</td></tr>
+          <tr><td>Full source-code ownership</td><td>Instead of the monthly plan; self-hosted, one-time</td><td class="r num">From 4,50,000</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">Pay the monthly plan annually in advance and get 2 months free.</p>
+  </section>
+
+  <section class="pad stack">
+    <h2>What the monthly plan covers</h2>
+    <div class="tbl">
+      <table>
+        <thead><tr><th>Included</th><th class="r">Starter</th><th class="r">Signature</th><th class="r">Premium</th></tr></thead>
+        <tbody>
+          <tr><td>Hosting, SSL, fast 3D delivery (CDN)</td><td class="r yes">Yes</td><td class="r yes">Yes</td><td class="r yes">Yes</td></tr>
+          <tr><td>Security updates and uptime monitoring</td><td class="r yes">Yes</td><td class="r yes">Yes</td><td class="r yes">Yes</td></tr>
+          <tr><td>Menu edits done by our team on request</td><td class="r num">5 / month</td><td class="r num">15 / month</td><td class="r">Unlimited</td></tr>
+          <tr><td>New dishes scanned in 3D</td><td class="r no">Add-on</td><td class="r num">1 / month</td><td class="r num">3 / month</td></tr>
+          <tr><td>Monthly performance report</td><td class="r no">No</td><td class="r yes">Yes</td><td class="r yes">Yes</td></tr>
+          <tr><td>Support response time</td><td class="r">48 hours</td><td class="r">24 hours</td><td class="r">4 hours</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="pad stack">
+    <h2>How we deliver</h2>
+    <div class="phases">
+      <div class="phase"><b>Discovery</b><span class="muted">Menu, brand and dish list. Pick hero dishes for AR.</span></div>
+      <div class="phase"><b>3D capture</b><span class="muted">1–3 on-site sessions. Your kitchen plates; we scan.</span></div>
+      <div class="phase"><b>Build</b><span class="muted">Menu set up, models optimised, tags added.</span></div>
+      <div class="phase"><b>Review</b><span class="muted">You test on staff phones. Two rounds of changes.</span></div>
+      <div class="phase"><b>Launch</b><span class="muted">QR stands placed, staff briefed, analytics on.</span></div>
+    </div>
+  </section>
+
+  <section class="pad">
+    <div class="two">
+      <div class="stack">
+        <h2>Payment terms</h2>
+        <ul class="list">
+          <li><span class="num">50%</span> of setup fee to confirm and book scanning dates</li>
+          <li><span class="num">30%</span> after you approve the 3D dishes</li>
+          <li><span class="num">20%</span> on go-live</li>
+          <li>Monthly plan starts on go-live day; minimum 6-month term</li>
+          <li>GST at 18% applies to all amounts</li>
+        </ul>
+      </div>
+      <div class="stack">
+        <h2>What we need from you</h2>
+        <ul class="list">
+          <li>Current menu with prices and descriptions</li>
+          <li>Logo and brand colours</li>
+          <li>Each AR dish plated as served, on scan days (about 12–15 dishes per session)</li>
+          <li>Ingredient and allergen details for tagged dishes</li>
+          <li>A quiet 2–3 hour slot per session, ideally before service</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="pad stack">
+    <h2>Why it pays back</h2>
+    <p>Guests order with more confidence when they can see the portion and plating, and AR makes your signature and higher-priced dishes easier to sell. Our analytics show you which dishes guests look at and which they skip, so you can adjust the menu with data.</p>
+    <p class="callout">Illustration, not a promise: the Signature plan costs about <span class="num">₹200</span> a day. If AR helps you sell two extra desserts or one upgraded main a day, the plan covers itself. We agree target numbers with you at kickoff and report against them monthly.</p>
+  </section>
+
+  <section class="pad stack">
+    <h2>Notes</h2>
+    <ul class="list muted">
+      <li>On-site scanning within city limits is included. Outstation visits are billed at actual travel cost.</li>
+      <li>AR opens in the phone's browser. iPhones use Apple's built-in AR viewer; most Android phones from the last five years are supported. Older phones still see the full menu with photos and a 3D view that rotates on screen.</li>
+      <li>Dishes that change appearance a lot (soups, drinks with ice, live-plated items) may be shown as 3D-on-screen instead of AR. We'll flag these during discovery.</li>
+      <li>You own your menu content, photos and the 3D models of your dishes. The software platform remains Divex Labs IP unless source-code ownership is purchased.</li>
+    </ul>
+  </section>
+
+  <section class="pad">
+    <div class="sign">
+      <div class="stack" style="gap:6px">
+        <p><strong>Next step:</strong> a 20-minute call to confirm the package and dish count, then we book your first scan day.</p>
+        <p class="muted">Divex Labs · Software, AI and automation for businesses</p>
+      </div>
+      <div class="sigline">Divyansh Rathod<br><span class="muted">Founder &amp; CEO, Divex Labs</span></div>
+    </div>
+  </section>
+</main>
